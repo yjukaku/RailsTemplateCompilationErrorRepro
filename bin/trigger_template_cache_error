@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+
+require 'net/http'
+
+def run(concurrency:, requests:)
+  uri = URI.parse("http://localhost:3001/")
+  concurrency.times.map do |i|
+    thread = Thread.new do
+      (requests/concurrency).times do
+        Net::HTTP.get(uri)
+        File.open("app/views/layouts/application.html.erb", "a") { |f| f << "\nAppend #{i}" }
+      end
+    end
+    thread
+  end.map(&:join)
+end
+
+run(concurrency: 5, requests: 50)

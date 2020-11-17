@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an app to reproduce a template compilation caching bug that shows up with concurrent requests to the server.
 
-Things you may want to cover:
+To repro:
 
-* Ruby version
+1. Start the server
+2. In another console, run the script at bin/trigger_template_cache_error
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+It seems the requirement for this bug to surface (in development) is that the template is changed during a request.
